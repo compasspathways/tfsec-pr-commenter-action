@@ -14,6 +14,7 @@ builds:
       - linux
     goarch:
       - amd64
+      - arm64
 
 snapshot:
   name_template: "{{ .Tag }}-next"
@@ -26,6 +27,5 @@ archives:
 release:
   prerelease: auto
   github:
-    owner: aquasecurity
+    owner: compasspathways
     name: tfsec-pr-commenter-action
-
