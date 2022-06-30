@@ -6,6 +6,15 @@ if [ -z "${INPUT_GITHUB_TOKEN}" ] ; then
   echo "Consider setting a GITHUB_TOKEN to prevent GitHub api rate limits." >&2
 fi
 
+ARCH=$(uname -m)
+if [ "${ARCH}" == "x86_64" ]; then
+  ARCH="amd64"
+fi
+
+if [ "${ARCH}" == "aarch64" ] || [ "${ARCH}" == "arm64" ]; then
+  ARCH="arm64"
+fi
+
 TFSEC_VERSION=""
 if [ "$INPUT_TFSEC_VERSION" != "latest" ] && [ -n "$INPUT_TFSEC_VERSION" ]; then
   TFSEC_VERSION="/tags/${INPUT_TFSEC_VERSION}"
@@ -34,7 +43,7 @@ function get_release_assets {
 function install_release {
   repo="$1"
   version="$2"
-  binary="$3-linux-amd64"
+  binary="$3-linux-${ARCH}"
   checksum="$4"
   release_assets="$(get_release_assets "${repo}" "${version}")"
 
@@ -63,5 +72,5 @@ if [ -n "${INPUT_TFSEC_FORMATS}" ]; then
   TFSEC_OUT_OPTION="${TFSEC_OUT_OPTION%.*}"
 fi
 
-tfsec --out=${TFSEC_OUT_OPTION} --format="${TFSEC_FORMAT_OPTION}" --soft-fail ${TFSEC_ARGS_OPTION} "${INPUT_WORKING_DIRECTORY}"
+tfsec --out=${TFSEC_OUT_OPTION} --format="${TFSEC_FORMAT_OPTION}" --soft-fail "${TFSEC_ARGS_OPTION}" "${INPUT_WORKING_DIRECTORY}"
 commenter

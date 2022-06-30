@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/alpine:3.12
+FROM public.ecr.aws/docker/library/alpine:latest
 
 RUN apk --no-cache --update add bash git \
     jq curl \
