@@ -55,7 +55,7 @@ function install_release {
 }
 
 install_release aquasecurity/tfsec "${TFSEC_VERSION}" tfsec tfsec_checksums.txt
-install_release aquasecurity/tfsec-pr-commenter-action "${COMMENTER_VERSION}" commenter checksums.txt
+install_release compasspathways/tfsec-pr-commenter-action "${COMMENTER_VERSION}" commenter checksums.txt
 
 if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}" || exit
